@@ -16,7 +16,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
 # =========================
 # Operating System Files
 # =========================
@@ -41,4 +40,7 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
 output/
+*.asv
