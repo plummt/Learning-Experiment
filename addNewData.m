@@ -17,6 +17,9 @@ for i1 = 1:length(t.name)
         if ~isempty(strfind(files(i2).name,'33'))
             del = [del,i2];
         end
+        if ~isempty(strfind(files(i2).name,'23'))
+            del = [del,i2];
+        end
     end
 end
 files(del) = [];
@@ -59,7 +62,7 @@ t.data{i2}.Properties.VariableDescriptions = {'The Direction the deviced moved'.
     'if they hit the button early'...
     'how early they hit the button'};
 close(f);
-writtenGuess = zeros(height(t.data{i2}),1);
+writtenGuess = t.data{i2}.Guess;
 notes = cell(height(t.data{i2}),1);
 tempTable = table2cell(table(writtenGuess,notes));
 f = figure('Position', [100 100 552 350]);
@@ -90,11 +93,31 @@ t.finalNote{i2} = inputdlg('What other notes do you have for this subject?','Not
 age = str2double(inputdlg('How old was the subject?','age',1,{''}));
 subjectAge = ones(height(t.data{i2}),1) * age;
 subjectNum = ones(height(t.data{i2}),1)*eval(t.name{i2}(9:10));
-group = cell(height(t.data{i2}),1);
-group(:) = {t.name{i2}(18:20)};
+group = t.name{i2}(18:20);
+switch group(1)
+    case '1'
+        groupNum = ones(height(t.data{i2}),1);
+    case '2'
+        groupNum = ones(height(t.data{i2}),1)*2;
+    case '3'
+        groupNum = ones(height(t.data{i2}),1)*3;
+    case '4'
+        groupNum = ones(height(t.data{i2}),1)*4;
+end
+switch group(3)
+    case 'A'
+        sectionNum = ones(height(t.data{i2}),1);
+    case 'B'
+        sectionNum = ones(height(t.data{i2}),1)*2;
+    case 'C'
+        sectionNum = ones(height(t.data{i2}),1)*3;
+    case 'D'
+        sectionNum = ones(height(t.data{i2}),1)*4;
+end
 t.data{i2}.subjectAge = subjectAge;
 t.data{i2}.subjectNum = subjectNum;
-t.data{i2}.groupNum = group;
+t.data{i2}.groupNum = groupNum;
+t.data{i2}.sectionNum = sectionNum;
 instructions = ones(height(t.data{i2}),1);
 if strcmp(t.name{i2}(18),'1')
     instructions = instructions*0;

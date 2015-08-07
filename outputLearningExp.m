@@ -52,6 +52,32 @@ for i1 = 1:length(t.data)
         saveas(f,fullfile(folder,'output', [t.name{i1}(1:end-3), 'pdf']));
     end
     close(f);
+    x=1:48;
+f = figure();
+
+    means = [];
+    for i2 = 1:48
+        if i2 == 1
+            means(i2) = mean(t.data{i1}.Position(i2:i2+3));
+        elseif i2 == 2
+            means(i2) = mean(t.data{i1}.Position(i2-1:i2+3));
+        elseif i2 == 3
+            means(i2) = mean(t.data{i1}.Position(i2-2:i2+3));
+        elseif i2 == 46
+            means(i2) = mean(t.data{i1}.Position(i2-3:i2+2));
+        elseif i2 == 47
+            means(i2) = mean(t.data{i1}.Position(i2-3:i2+1));
+        elseif i2 == 48
+            means(i2) = mean(t.data{i1}.Position(i2-3:i2));
+        else
+            means(i2) = mean(t.data{i1}.Position(i2-3:i2+3));
+        end
+    end
+    plot(x,t.data{i1}.Position(:),x,means,x,t.data{i1}.percentGuess(:),x,t.data{i1}.percentAnswer(:));
+    title(t.name{i1});
+    legend('Posistion','Mean Pos','Guess','Answer','Location','southoutside','Orientation','horizontal');
+    saveas(f,[pwd,'\output\',t.name{i1}(1:end-3),'jpg']);
+    close(f)
 end
 for i1 = 1:length(t.data)
     if exist(fullfile(folder,'output', [t.name{i1}(1:end-3), 'xlsx']),'file') ~= 2
