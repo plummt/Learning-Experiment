@@ -58,19 +58,15 @@ f = figure();
     means = [];
     for i2 = 1:48
         if i2 == 1
-            means(i2) = mean(t.data{i1}.Position(i2:i2+3));
+            means(i2) = mean(t.data{i1}.Position(i2:i2+2));
         elseif i2 == 2
-            means(i2) = mean(t.data{i1}.Position(i2-1:i2+3));
-        elseif i2 == 3
-            means(i2) = mean(t.data{i1}.Position(i2-2:i2+3));
-        elseif i2 == 46
-            means(i2) = mean(t.data{i1}.Position(i2-3:i2+2));
+            means(i2) = mean(t.data{i1}.Position(i2-1:i2+2));
         elseif i2 == 47
-            means(i2) = mean(t.data{i1}.Position(i2-3:i2+1));
+            means(i2) = mean(t.data{i1}.Position(i2-2:i2+1));
         elseif i2 == 48
-            means(i2) = mean(t.data{i1}.Position(i2-3:i2));
+            means(i2) = mean(t.data{i1}.Position(i2-2:i2));
         else
-            means(i2) = mean(t.data{i1}.Position(i2-3:i2+3));
+            means(i2) = mean(t.data{i1}.Position(i2-2:i2+2));
         end
     end
     plot(x,t.data{i1}.Position(:),x,means,x,t.data{i1}.percentGuess(:),x,t.data{i1}.percentAnswer(:));
