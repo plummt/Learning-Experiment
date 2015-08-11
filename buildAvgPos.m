@@ -16,8 +16,8 @@ for i1 = 1:length(s.group)
    
     for i3 = 1:length(trial)
         avgPos(i3) = Posis(i3,1)/trial(i3,1);
-        avgGuess(i3) = guess(i3,1)/trial(i3,1);
-        avgAnswer(i3) = answer(i3,1)/trial(i3,1);
+        avgGuess(i3) = sum(guess(1:i3,1))/sum(trial(1:i3,1));
+        avgAnswer(i3) = sum(answer(1:i3,1))/sum(trial(1:i3,1));
     end
     means = zeros(48,1);
     for i2 = 1:48
