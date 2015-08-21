@@ -1,4 +1,4 @@
-function [] = outputLearningExp(t,data,s,folder)
+function [means] = outputLearningExp(t,data,s,folder)
 if exist(fullfile(folder,'output'),'dir') ~= 7
     mkdir(fullfile(folder,'output'));
 end
