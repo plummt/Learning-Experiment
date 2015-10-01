@@ -6,7 +6,7 @@ lastValue = [];
 Type = [];
 Group = [];
 varTable = [];
-for i = 1:4
+for i = 1:length(avgAnswer)
     [AnswerFit{i}, AnswerGOF{i}] = createFit4(fullx,avgAnswer{i});
     [GuessFit{i}, GuessGOF{i}] = createFit4(fullx,avgGuess{i});
     [PosFit{i}, PosGOF{i}] = createFit4(fullx,avgPos{i});
@@ -64,6 +64,7 @@ for i = 1:4
     close all
 end
 varTable = table(a',b',lastValue',Type',Group','VariableNames',{'a','b','lastValue','type','group'});
+writetable(varTable,[pwd,'\output\','BestFit Variables.xlsx'])
 blue = [0,0.447,0.741];
 orange = [0.85,0.325,0.098];
 yellow = [0.929,0.694,0.125];
@@ -75,13 +76,14 @@ y3 = feval(AnswerFit{3},fullx);
 y4 = feval(AnswerFit{4},fullx);
 plot(fullx,y1,fullx,y2,fullx,y3,fullx,y4,'LineWidth',2);
 hold on
+line(fullx,0*fullx+.5,'LineStyle','--','Color','k');
 scatter(fullx,avgAnswer{1},'.','MarkerFaceColor',blue,'MarkerEdgeColor',blue);
 scatter(fullx,avgAnswer{2},'.','MarkerFaceColor',orange,'MarkerEdgeColor',orange);
 scatter(fullx,avgAnswer{3},'.','MarkerFaceColor',yellow,'MarkerEdgeColor',yellow);
 scatter(fullx,avgAnswer{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 
 title('Correct Responce Percentage');
-legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
+legend('Group 1','Group 2','Group 3','Group4','Chance','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
 ylabel('Percentage');
 ylim([0,1]);
@@ -94,12 +96,13 @@ y3 = feval(GuessFit{3},fullx);
 y4 = feval(GuessFit{4},fullx);
 plot(fullx,y1,fullx,y2,fullx,y3,fullx,y4,'LineWidth',2);
 hold on
+line(fullx,0*fullx+.5,'LineStyle','--','Color','k');
 scatter(fullx,avgGuess{1},'.','MarkerFaceColor',blue,'MarkerEdgeColor',blue);
 scatter(fullx,avgGuess{2},'.','MarkerFaceColor',orange,'MarkerEdgeColor',orange);
 scatter(fullx,avgGuess{3},'.','MarkerFaceColor',yellow,'MarkerEdgeColor',yellow);
 scatter(fullx,avgGuess{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Correct Perdiction Percentage');
-legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
+legend('Group 1','Group 2','Group 3','Group4','Chance','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
 ylabel('Percentage');
 ylim([0,1]);
@@ -112,6 +115,7 @@ y3 = feval(PosFit{3},fullx);
 y4 = feval(PosFit{4},fullx);
 plot(fullx,y1,fullx,y2,fullx,y3,fullx,y4,'LineWidth',2);
 hold on
+
 scatter(fullx,avgPos{1},'.','MarkerFaceColor',blue,'MarkerEdgeColor',blue);
 scatter(fullx,avgPos{2},'.','MarkerFaceColor',orange,'MarkerEdgeColor',orange);
 scatter(fullx,avgPos{3},'.','MarkerFaceColor',yellow,'MarkerEdgeColor',yellow);
@@ -119,8 +123,8 @@ scatter(fullx,avgPos{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Average Responce Position');
 legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
-ylabel('Distance (in.)');
-ylim([0,(57/1.59)]);
+ylabel('Distance (cm)');
+ylim([0,(144.78/1.59)]);
 saveas(f,[pwd,'\output\','Average Distance BestFit.jpg']);
 close(f);
 f = figure();
@@ -130,12 +134,13 @@ y3 = feval(AwayAnswerFit{3},x);
 y4 = feval(AwayAnswerFit{4},x);
 plot(x,y1,x,y2,x,y3,x,y4,'LineWidth',2);
 hold on
+line(x,0*x+.5,'LineStyle','--','Color','k');
 scatter(x,awayavgAnswer{1},'.','MarkerFaceColor',blue,'MarkerEdgeColor',blue);
 scatter(x,awayavgAnswer{2},'.','MarkerFaceColor',orange,'MarkerEdgeColor',orange);
 scatter(x,awayavgAnswer{3},'.','MarkerFaceColor',yellow,'MarkerEdgeColor',yellow);
 scatter(x,awayavgAnswer{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Away Correct Responce Percentage');
-legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
+legend('Group 1','Group 2','Group 3','Group4','Chance','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
 ylabel('Percentage');
 ylim([0,1]);
@@ -148,12 +153,13 @@ y3 = feval(AwayGuessFit{3},x);
 y4 = feval(AwayGuessFit{4},x);
 plot(x,y1,x,y2,x,y3,x,y4,'LineWidth',2);
 hold on
+line(x,0*x+.5,'LineStyle','--','Color','k');
 scatter(x,awayavgGuess{1},'.','MarkerFaceColor',blue,'MarkerEdgeColor',blue);
 scatter(x,awayavgGuess{2},'.','MarkerFaceColor',orange,'MarkerEdgeColor',orange);
 scatter(x,awayavgGuess{3},'.','MarkerFaceColor',yellow,'MarkerEdgeColor',yellow);
 scatter(x,awayavgGuess{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Away Correct Perdiction Percentage');
-legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
+legend('Group 1','Group 2','Group 3','Group4','Chance','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
 ylabel('Percentage');
 ylim([0,1]);
@@ -173,8 +179,8 @@ scatter(x,awayavgPos{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Away Responce Position');
 legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
-ylabel('Distance (in.)');
-ylim([0,(57/1.59)]);
+ylabel('Distance (cm)');
+ylim([0,(144.78/1.59)]);
 saveas(f,[pwd,'\output\','Away Position BestFit.jpg']);
 close(f);
 f = figure();
@@ -184,12 +190,13 @@ y3 = feval(TowardsAnswerFit{3},x);
 y4 = feval(TowardsAnswerFit{4},x);
 plot(x,y1,x,y2,x,y3,x,y4,'LineWidth',2);
 hold on
+line(x,0*x+.5,'LineStyle','--','Color','k');
 scatter(x,towavgAnswer{1},'.','MarkerFaceColor',blue,'MarkerEdgeColor',blue);
 scatter(x,towavgAnswer{2},'.','MarkerFaceColor',orange,'MarkerEdgeColor',orange);
 scatter(x,towavgAnswer{3},'.','MarkerFaceColor',yellow,'MarkerEdgeColor',yellow);
 scatter(x,towavgAnswer{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Towards Correct Responce Percentage');
-legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
+legend('Group 1','Group 2','Group 3','Group4','Chance','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
 ylabel('Percentage');
 ylim([0,1]);
@@ -202,12 +209,13 @@ y3 = feval(TowardsGuessFit{3},x);
 y4 = feval(TowardsGuessFit{4},x);
 plot(x,y1,x,y2,x,y3,x,y4,'LineWidth',2);
 hold on
+line(x,0*x+.5,'LineStyle','--','Color','k');
 scatter(x,towavgGuess{1},'.','MarkerFaceColor',blue,'MarkerEdgeColor',blue);
 scatter(x,towavgGuess{2},'.','MarkerFaceColor',orange,'MarkerEdgeColor',orange);
 scatter(x,towavgGuess{3},'.','MarkerFaceColor',yellow,'MarkerEdgeColor',yellow);
 scatter(x,towavgGuess{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Towards Correct Perdiction Percentage');
-legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
+legend('Group 1','Group 2','Group 3','Group4','Chance','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
 ylabel('Percentage');
 ylim([0,1]);
@@ -227,8 +235,8 @@ scatter(x,towavgPos{4},'.','MarkerFaceColor',purple,'MarkerEdgeColor',purple);
 title('Towards Responce Position');
 legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
 xlabel('Trail Number');
-ylabel('Distance (in.)');
-ylim([0,(57/1.59)]);
+ylabel('Distance (cm)');
+ylim([0,(144.78/1.59)]);
 saveas(f,[pwd,'\output\','Towards Position BestFit.jpg']);
 close(f);
 

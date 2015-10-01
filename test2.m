@@ -39,7 +39,7 @@ for i1 = 1:length(s.group)
     awayanswer = zeros(24,1);
     awaytrial = zeros(24,1);
     for i2 = 1:height(towards)
-        towPosis(towards.ord(i2),1) = towPosis(towards.ord(i2),1) + towards.correctedPosition(i2);
+        towPosis(towards.ord(i2),1) = towPosis(towards.ord(i2),1) + towards.normalizedPosition(i2);
         towguess(towards.ord(i2),1) = towguess(towards.ord(i2),1) + towards.correctGuess(i2);
         towanswer(towards.ord(i2),1) = towanswer(towards.ord(i2),1) + towards.correctAnswer(i2);
         towtrial(towards.ord(i2),1) = towtrial(towards.ord(i2),1) +1;
@@ -54,7 +54,7 @@ for i1 = 1:length(s.group)
     end
     
     for i2 = 1:height(away)
-        awayPosis(away.ord(i2),1) = awayPosis(away.ord(i2),1) + away.correctedPosition(i2);
+        awayPosis(away.ord(i2),1) = awayPosis(away.ord(i2),1) + away.normalizedPosition(i2);
         awayguess(away.ord(i2),1) = awayguess(away.ord(i2),1) + away.correctGuess(i2);
         awayanswer(away.ord(i2),1) = awayanswer(away.ord(i2),1) + away.correctAnswer(i2);
         awaytrial(away.ord(i2),1) = awaytrial(away.ord(i2),1) +1;
@@ -76,7 +76,7 @@ title(['Towards Average Position ']);
 legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
 xlabel('Ordered instance of Towards Condition ');
 ylabel('Distance (in.)');
-ylim([0,(57/1.59)]);
+ylim([0,2]);
 saveas(f,[pwd,'\output\','Group towards pos.jpg']);
 close(f);
 f = figure();
@@ -103,7 +103,7 @@ title(['Away Average Position ']);
 legend('Group 1','Group 2','Group 3','Group4','Location','southoutside','Orientation','horizontal');
 xlabel('Ordered instance of Away Condition');
 ylabel('Distance (in.)');
-ylim([0,(57/1.59)]);
+ylim([0,2]);
 saveas(f,[pwd,'\output\','Group away pos.jpg']);
 close(f);
 f = figure();
