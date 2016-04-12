@@ -103,6 +103,8 @@ switch group(1)
         groupNum = ones(height(t.data{i2}),1)*3;
     case '4'
         groupNum = ones(height(t.data{i2}),1)*4;
+    case '5'
+        groupNum = ones(height(t.data{i2}),1)*5;
 end
 switch group(3)
     case 'A'

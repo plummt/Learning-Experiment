@@ -6,8 +6,8 @@ rightDist = [1.125 2.125 3.125 4.125];
 leftDist = [1.125-.25 2.125-.25 3.125-.25 4.125-.25];
 for i1 = 1:length(t.data)
     f = figure( 'PaperPositionMode','auto',...
-                'PaperOrientation','landscape',...
-                'Position',[50 0 1200 800]);
+        'PaperOrientation','landscape',...
+        'Position',[50 0 1200 800]);
     age = num2str(t.data{i1}.subjectAge(1));
     uicontrol(f,'Style','text','String',[t.name{1,i1}(1:end-4),' Age:',age],...
         'units','normalized','Position',[.5-(.25/2) .951 .3 .035],'FontSize',15);
@@ -19,7 +19,7 @@ for i1 = 1:length(t.data)
     xlabel( 'Group of 10 seq. Trials');
     legend('Guess %','Dist. traveled');
     hold on;
-    err=errorbar(rightDist,t.results{i1}.AvgPos,t.results{i1}.StdPos); 
+    err=errorbar(rightDist,t.results{i1}.AvgPos,t.results{i1}.StdPos);
     set(err,'linestyle','none')
     subplot(2,2,2)
     bar([t.results{i1}.Answer,t.results{i1}.AvgPos]);
@@ -28,7 +28,7 @@ for i1 = 1:length(t.data)
     xlabel( 'Group of 10 seq. Trials');
     legend('Answer %','Dist. traveled');
     hold on;
-    err=errorbar(rightDist,t.results{i1}.AvgPos,t.results{i1}.StdPos); 
+    err=errorbar(rightDist,t.results{i1}.AvgPos,t.results{i1}.StdPos);
     set(err,'linestyle','none')
     subplot(2,2,3)
     bar([t.results{i1}.towardsAvgPos,t.results{i1}.awayAvgPos]);
@@ -37,24 +37,24 @@ for i1 = 1:length(t.data)
     xlabel( 'Group of 10 seq. Trials');
     legend('Towards','Away');
     hold on;
-    err=errorbar(leftDist,t.results{i1}.towardsAvgPos,t.results{i1}.towardsStdPos); 
+    err=errorbar(leftDist,t.results{i1}.towardsAvgPos,t.results{i1}.towardsStdPos);
     set(err,'linestyle','none')
-    err=errorbar(rightDist,t.results{i1}.awayAvgPos,t.results{i1}.awayStdPos); 
+    err=errorbar(rightDist,t.results{i1}.awayAvgPos,t.results{i1}.awayStdPos);
     set(err,'linestyle','none')
     userData = [t.results{i1}.Guess,t.results{i1}.Answer,t.results{i1}.AvgPos,...
-                t.results{i1}.towardsAvgPos,t.results{i1}.awayAvgPos];
+        t.results{i1}.towardsAvgPos,t.results{i1}.awayAvgPos];
     tab = uitable('ColumnName',{'Guess','Answer','DistTraveled','Towards','Away'},...
-                'RowName',{'Group1','Group2','Group3','Group4'},...
-                'data',userData,...
-                'units','normalized');
+        'RowName',{'Group1','Group2','Group3','Group4'},...
+        'data',userData,...
+        'units','normalized');
     tab.Position(1:3) = [.54 .1 tab.Position(3)+.13];
     if exist(fullfile(folder,'output', [t.name{i1}(1:end-3), 'pdf']),'file') ~= 2
         saveas(f,fullfile(folder,'output', [t.name{i1}(1:end-3), 'pdf']));
     end
     close(f);
     x=1:48;
-f = figure();
-
+    f = figure();
+    
     means = [];
     for i2 = 1:48
         if i2 == 1
@@ -72,7 +72,9 @@ f = figure();
     plot(x,t.data{i1}.Position(:),x,means,x,t.data{i1}.percentGuess(:),x,t.data{i1}.percentAnswer(:));
     title(t.name{i1});
     legend('Posistion','Mean Pos','Guess','Answer','Location','southoutside','Orientation','horizontal');
-    saveas(f,[pwd,'\output\',t.name{i1}(1:end-3),'jpg']);
+    if exist(fullfile(folder,'output', [t.name{i1}(1:end-3), 'jpg']),'file') ~= 2
+        saveas(f,[pwd,'\output\',t.name{i1}(1:end-3),'jpg']);
+    end
     close(f)
 end
 for i1 = 1:length(t.data)
@@ -98,4 +100,4 @@ writetable(t.group1,fullfile(folder,'output','Averages.xlsx'),'sheet',1,'range',
 writetable(t.group2,fullfile(folder,'output','Averages.xlsx'),'sheet',1,'range','A7');
 writetable(t.group3,fullfile(folder,'output','Averages.xlsx'),'sheet',1,'range','A13');
 writetable(t.group4,fullfile(folder,'output','Averages.xlsx'),'sheet',1,'range','A19');
-end 
+end

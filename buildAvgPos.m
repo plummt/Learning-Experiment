@@ -43,7 +43,7 @@ end
     legend('Group 1','Group 2','Group 3','Group 4','Location','southoutside','Orientation','horizontal');
     xlabel('Trial Number');
     ylabel('Distance (in.)');
-    ylim([0,(57/1.59)]);
+    ylim([0,(1.4478/1.59)]);
     saveas(f,[pwd,'\output\','Group average pos.jpg']);
     close(f);
     f = figure();

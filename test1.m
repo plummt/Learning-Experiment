@@ -7,6 +7,8 @@ for i1 = 1:length(s.group)
     s.group{i1}.towardsdata = [];
     s.group{i1}.awaydata = [];
     for i2 = 1:4
+        s.group{i1}.towards{i2}.normalizedPosition = s.group{i1}.towards{i2}.correctedPosition/s.group{i1}.mean;
+        s.group{i1}.away{i2}.normalizedPosition = s.group{i1}.away{i2}.correctedPosition/s.group{i1}.mean;
         s.group{i1}.towardsdata = [s.group{i1}.towardsdata; s.group{i1}.towards{i2}];
         s.group{i1}.awaydata = [s.group{i1}.awaydata; s.group{i1}.away{i2}];
     end
@@ -21,7 +23,7 @@ for i1 = 1:length(s.group)
     
     
     for i2 = 1:height(s.group{i1}.towardsdata)
-        towPosis(s.group{i1}.towardsdata.Trial(i2),1) = towPosis(s.group{i1}.towardsdata.Trial(i2),1) + s.group{i1}.towardsdata.correctedPosition(i2);
+        towPosis(s.group{i1}.towardsdata.Trial(i2),1) = towPosis(s.group{i1}.towardsdata.Trial(i2),1) + s.group{i1}.towardsdata.normalizedPosition(i2);
         towguess(s.group{i1}.towardsdata.Trial(i2),1) = towguess(s.group{i1}.towardsdata.Trial(i2),1) + s.group{i1}.towardsdata.correctGuess(i2);
         towanswer(s.group{i1}.towardsdata.Trial(i2),1) = towanswer(s.group{i1}.towardsdata.Trial(i2),1) + s.group{i1}.towardsdata.correctAnswer(i2);
         towtrial(s.group{i1}.towardsdata.Trial(i2),1) = towtrial(s.group{i1}.towardsdata.Trial(i2),1) +1;
@@ -37,7 +39,7 @@ for i1 = 1:length(s.group)
     
     
     for i2 = 1:height(s.group{i1}.awaydata)
-        awayPosis(s.group{i1}.awaydata.Trial(i2),1) = awayPosis(s.group{i1}.awaydata.Trial(i2),1) + s.group{i1}.awaydata.correctedPosition(i2);
+        awayPosis(s.group{i1}.awaydata.Trial(i2),1) = awayPosis(s.group{i1}.awaydata.Trial(i2),1) + s.group{i1}.awaydata.normalizedPosition(i2);
         awayguess(s.group{i1}.awaydata.Trial(i2),1) = awayguess(s.group{i1}.awaydata.Trial(i2),1) + s.group{i1}.awaydata.correctGuess(i2);
         awayanswer(s.group{i1}.awaydata.Trial(i2),1) = awayanswer(s.group{i1}.awaydata.Trial(i2),1) + s.group{i1}.awaydata.correctAnswer(i2);
         awaytrial(s.group{i1}.awaydata.Trial(i2),1) = awaytrial(s.group{i1}.awaydata.Trial(i2),1) +1;
@@ -57,7 +59,7 @@ for i1 = 1:length(s.group)
     legend('Posistion','Perdiction','Response','Location','southoutside','Orientation','horizontal');
     xlabel('Trial Number');
     ylabel('Percentage');
-    ylim([0,(57/1.59)]);
+    ylim([0,(1.4478/1.59)]);
     saveas(f,[pwd,'\output\','Group ',num2str(i1),' towards.jpg']);
     close(f);
     f = figure();
