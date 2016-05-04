@@ -36,9 +36,9 @@ function [t,data,s,means] = learnExp()
 
 load('learningExpDataNonCompliance.mat');
 folder = pwd;
-t = addNewData(t);
-save('learningExpData.mat','t');
+t = addNewData(t); %#ok<NODEF>
 t = correctPosition(t);
+save('learningExpData.mat','t');
 sectionSize = 12;
 g{1} = {};
 g{2} = {};
